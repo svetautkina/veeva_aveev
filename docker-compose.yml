@@ -1,0 +1,18 @@
+version: '3'
+services:
+  web-custom:
+    image: my-web-app
+    container_name: web-custom
+    ports:
+      - "8098:8098"
+  web-ready:
+    image: nginx
+    container_name: web-ready
+    ports:
+      - "80:80"
+  web-client:
+    image: python:3.10-slim
+    container_name: web-client
+    depends_on:
+      - web-custom
+    command: python -c "import urllib.request, time; [print('Sending...')or time.sleep(5) for_in inter(int, 1)]"
